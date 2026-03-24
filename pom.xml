@@ -5,7 +5,6 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- The user had 4.0.3, which doesn't exist yet and broke Spring boot context. Downgrading to a stable 3.2.x version. -->
         <version>3.2.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
