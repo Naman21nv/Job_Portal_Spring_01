@@ -7,26 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * REPOSITORY LAYER (Data Access Object / Database)
- *
- * THEORY & FLOW:
- * In Spring Boot's MVC architecture, the Repository layer is solely responsible
- * for directly interacting with the "Database" or data source. 
- * Flow: Controller (Web Requests) -> Service (Business Logic) -> Repository (Database interaction).
- *
- * WHY USE A REPOSITORY LAYER?
- * 1. Separation of Concerns: The Service layer shouldn't know HOW data is saved or retrieved, 
- *    it should just ask the Repository to do it. This way, if you switch from a fake list 
- *    to a real MySQL database later, you only change this file.
- * 2. Code Reusability: Multiple services might need to access Jobs, they can all use this one class.
- *
- * ANNOTATION BREAKDOWN:
- * @Repository -> This is a specialized version of @Component. It tells Spring Boot:
- *                "This class is responsible for communicating with the database."
- *                Spring will automatically create a single instance (a Bean) of this 
- *                class at startup, allowing you to use @Autowired in your Service class.
- */
 @Repository
 public class JobRepo {
 
@@ -65,5 +45,16 @@ public class JobRepo {
     public void addJob(JobPost job) {
         jobs.add(job);
         System.out.println("Job added: " + job); // Prints to console for debugging
+    }
+
+    /**
+     * Deletes a job from our "database" by its ID.
+     * Called by: JobService.deleteJob(int)
+     *
+     * @param postId The ID of the JobPost to delete.
+     */
+    public void deleteJob(int postId) {
+        jobs.removeIf(job -> job.getPostId() == postId);
+        System.out.println("Job deleted with ID: " + postId);
     }
 }

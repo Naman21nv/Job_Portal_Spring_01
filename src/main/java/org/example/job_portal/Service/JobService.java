@@ -7,28 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * SERVICE LAYER (Business Logic)
- * 
- * THEORY & FLOW:
- * The Service layer acts as a "middleman" or "manager" between the Controller (Web Requests) 
- * and the Repository (Database). 
- * Flow: Controller -> Service -> Repository.
- * 
- * WHY USE A SERVICE LAYER?
- * 1. Separation of Concerns: The Controller's ONLY job should be handling HTTP requests (URLs).
- *    The Repository's ONLY job should be talking to the database.
- *    If we need to do math, validate user input, send an email, or apply rules 
- *    (e.g., "Don't allow jobs with < 0 experience"), all that logic goes HERE in the Service.
- * 2. Reusability: You might have a Website Controller AND a Mobile App Controller. Both can 
- *    reuse this single JobService without duplicating code.
- * 
- * ANNOTATION BREAKDOWN:
- * @Service -> Tells Spring Boot: "This class contains my business rules/logic."
- *             It is a specialized version of @Component. Spring will automatically create 
- *             a single instance (a Bean) of this class at startup, allowing you to use 
- *             @Autowired to inject it into your Controllers.
- */
 @Service
 public class JobService {
 
@@ -62,5 +40,14 @@ public class JobService {
      */
     public List<JobPost> getJobs() {
         return repo.getAllJobs();
+    }
+
+    /**
+     * Deletes a job from the database via the Repository.
+     *
+     * @param postId The ID of the JobPost to delete.
+     */
+    public void deleteJob(int postId) {
+        repo.deleteJob(postId);
     }
 }
